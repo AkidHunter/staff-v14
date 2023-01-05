@@ -89,18 +89,27 @@ module.exports = {
       case "all":
         deletedMessages = await interaction.channel.bulkDelete(fetch, true);
         results(deletedMessages);
+        setTimeout(() => {
+          deletedMessages.delete();
+        }, 5000);
         break;
 
       case "bot":
         filtered = fetch.filter((m) => m.author.bot);
         deletedMessages = await interaction.channel.bulkDelete(filtered, true);
         results(deletedMessages);
+        setTimeout(() => {
+          deletedMessages.delete();
+        }, 5000);
 
         break;
       case "user":
         filtered = fetch.filter((m) => m.author.id === user.id);
         deletedMessages = await interaction.channel.bulkDelete(filtered, true);
         results(deletedMessages);
+        setTimeout(() => {
+          deletedMessages.delete();
+        }, 5000);
     }
   },
 };
