@@ -1,47 +1,48 @@
-const { CommandInteraction, MessageEmbed } = require("discord.js");
-const suggestDB = require("../../schema/absence");
-const suggestSetupDB = require("../../schema/absenceSetup");
+const { CommandInteraction, EmbedBuilder, SlashCommandBuilder, Colors } = require("discord.js");
+const suggestDB = require("../schemas/absence");
+const suggestSetupDB = require("../schemas/absenceSetup");
 module.exports = {
-    name: 'absence',
-    description: "Create an absence request.",
-    options: [{
-            name: "type",
-            description: "Select a type.",
-            required: true,
-            type: "STRING",
-            choices: [{
+    data: new SlashCommandBuilder()
+        .setName("absence")
+        .setDescription("Create an absence request.")
+        .addStringOption((options) =>
+            options
+                .setName("type")
+                .setDescription("Select a type.")
+                .setRequired(true)
+                .addChoices({
                     name: "Sick",
                     value: "Sick",
-                },
-                {
+                })
+                .addChoices({
                     name: "Traveling",
                     value: "Traveling",
-                },
-                {
+                })
+                .addChoices({
                     name: "Other",
                     value: "Other",
-                },
-            ],
-        },
-        {
-            name: "explanation",
-            description: "Describe your absence request.",
-            type: "STRING",
-            required: true,
-        },
-        {
-            name: "length",
-            description: "Describe your absence length.",
-            type: "STRING",
-            required: true,
-        },
-        {
-            name: "dm",
-            description: "Set whether the bot will DM you, once your absence request has been declined or accepted.",
-            type: "BOOLEAN",
-            required: true,
-        }
-    ],
+                })
+        )
+        .addStringOption((options) =>
+            options
+                .setName("explanation")
+                .setDescription("Describe your absence request.")
+                .setRequired(true)
+        )
+        .addStringOption((options) =>
+            options
+                .setName("length")
+                .setDescription("Describe your absence length.")
+                .setRequired(true)
+        )
+        .addBooleanOption((options) =>
+            options
+                .setName("dm")
+                .setDescription(
+                    "Set whether the bot will DM you, once your absence request has been declined or accepted."
+                )
+                .setRequired(true)
+        ),
     /**
      * @param {CommandInteraction} interaction 
      */
@@ -58,20 +59,20 @@ module.exports = {
         var absenceChannel;
 
         if (!absenceSetup) {
-            return interaction.reply({ embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ This server has not setup the absent system.`)] })
+            return interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.RED").setDescription(`❌ This server has not setup the absent system.`)] })
         } else {
             absenceChannel = interaction.guild.channels.cache.get(absenceSetup.ChannelID)
         }
 
         if (absenceSetup.Disabled)
-            return interaction.reply({ embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ Absents are currently disabled.`)] })
+            return interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.RED").setDescription(`❌ Absents are currently disabled.`)] })
 
         if (absenceSetup.ChannelID === "None")
-            return interaction.reply({ embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ The absent channel hasn't been set.`)] })
+            return interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.RED").setDescription(`❌ The absent channel hasn't been set.`)] })
 
 
-        const Embed = new MessageEmbed()
-            .setColor("ORANGE")
+        const Embed = new EmbedBuilder()
+            .setColor("Colors.ORANGE")
             .setDescription(`**Absence Request:**\n ${interaction.user.tag}`)
             .addFields({ name: "Type", value: type, inline: true }, { name: "Status", value: "🕐 Pending", inline: true }, { name: "Length", value: length, inline: true }, { name: "Explanation", value: explanation, inline: true }, )
 
@@ -94,10 +95,10 @@ module.exports = {
                 DownvotesMembers: [],
                 InUse: false,
             })
-            interaction.reply({ embeds: [new MessageEmbed().setColor("ORANGE").setDescription(`✅ Hey ${interaction.user.tag},Your absence was successfully created and sent to be reviewed by an Admin+`)], ephemeral: true})
+            interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.ORANGE").setDescription(`✅ Hey ${interaction.user.tag},Your absence was successfully created and sent to be reviewed by an Admin+`)], ephemeral: true})
         } catch (err) {
             console.log(err);
-            return interaction.reply({ embeds: [new MessageEmbed().setColor("RED").setDescription(`❌ An error occured.`)] })
+            return interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.RED").setDescription(`❌ An error occured.`)] })
         }
     }
 }
