@@ -11,17 +11,12 @@ module.exports = {
 
     let activities = [
       {
-          text: `Zybre Discord`,
-          type: ActivityType.Watching, 
-          status: "online" 
-      },
-      {
           text: `Zybre Client`,
           type: ActivityType.Playing,
           status: "online"
       },
       {
-          text: `Zybre Conmmunity`,
+          text: `Zybre Staff`,
           type: ActivityType.Watching,
           status: "online"
       },
