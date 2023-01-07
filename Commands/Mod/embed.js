@@ -66,7 +66,7 @@ module.exports = {
         if (interaction.options.getString("url")) CUSTOM_EMBED.setURL(interaction.options.getString("url"))
         if (interaction.options.getString("thumbnail")) CUSTOM_EMBED.setThumbnail(interaction.options.getString("thumbnail"))
         if (interaction.options.getString("image")) CUSTOM_EMBED.setImage(interaction.options.getString("image"))
-        if (interaction.options.getString("footer")) CUSTOM_EMBED.setFooter(interaction.options.getString("footer"))
+        if (interaction.options.getString("footer")) CUSTOM_EMBED.setFooter({text: interaction.options.getString("footer")})
         if (interaction.options.getString("timestamp")) CUSTOM_EMBED.setTimestamp(interaction.options.getString("timestamp"))
  
         interaction.channel.send({ embeds: [CUSTOM_EMBED] });
