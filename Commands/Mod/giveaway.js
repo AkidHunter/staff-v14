@@ -90,7 +90,7 @@ module.exports = {
 
                 if (!data) {
                     embed
-                        .setColor("Red")
+                        .setcolor("FF0000")
                         .setDescription("Could not find any giveaway with that message ID");
                     return interaction.reply({ embeds: [embed], ephemeral: true });
                 }
@@ -98,7 +98,7 @@ module.exports = {
                 const message = (await interaction.guild.channels.cache.get(data.ChannelID).messages.fetch(messageId));
                 if (!message) {
                     embed
-                        .setColor("Red")
+                        .setcolor("FF0000")
                         .setDescription("This giveaway doesn't exist");
                     return interaction.reply({ embeds: [embed], ephemeral: true });
                 }
@@ -106,14 +106,14 @@ module.exports = {
                 if (["end", "reroll"].includes(toggle)) {
                     if (data.Ended === (toggle === "end" ? true : false)) {
                         embed
-                            .setColor("Red")
+                            .setcolor("FF0000")
                             .setDescription(`This giveaway has ${toggle === "end" ? "already ended" : "not ended"}`);
                         return interaction.reply({ embeds: [embed], ephemeral: true });
                     }
 
                     if (toggle === "end" && data.Paused === true) { 
                         embed
-                            .setColor("Red")
+                            .setcolor("FF0000")
                             .setDescription("This giveaway is paused. Unpause it before ending the giveaway");
                         return interaction.reply({ embeds: [embed], ephemeral: true });
                     }
@@ -121,7 +121,7 @@ module.exports = {
                     endGiveaway(message, (toggle === "end" ? false : true));
 
                     embed
-                        .setColor("Green")
+                        .setColor("008000")
                         .setDescription(`The giveaway has ${toggle === "end" ? "ended" : "been rerolled"}`);
                     return interaction.reply({ embeds: [embed], ephemeral: true });
                 }
@@ -129,14 +129,14 @@ module.exports = {
                 if (["pause", "unpause"].includes(toggle)) {
                     if (data.Ended) {
                         embed
-                            .setColor("Red")
+                            .setcolor("FF0000")
                             .setDescription("This giveaway has already ended");
                         return interaction.reply({ embeds: [embed], ephemeral: true });
                     }
 
                     if (data.Paused === (toggle === "pause" ? true : false)) {
                         embed
-                            .setColor("Red")
+                            .setcolor("FF0000")
                             .setDescription(`This giveaway is already ${toggle === "pause" ? "paused" : "unpaused"}`);
                         return interaction.reply({ embeds: [embed], ephemeral: true });
                     }
@@ -153,7 +153,7 @@ module.exports = {
                     await message.edit({ content: `🎉 **Giveaway ${toggle === "pause" ? "Paused" : "Started"}** 🎉`, embeds: [giveawayEmbed], components: [button] });
 
                     embed
-                        .setColor("Green")
+                        .setColor("008000")
                         .setDescription(`The giveaway has been ${toggle === "pause" ? "paused" : "unpaused"}`);
                     interaction.reply({ embeds: [embed], ephemeral: true });
 
@@ -168,7 +168,7 @@ module.exports = {
 
                     await message.delete();
                     embed
-                        .setColor("Green")
+                        .setColor("008000")
                         .setDescription("The giveaway has been deleted");
                     interaction.reply({ embeds: [embed], ephemeral: true });
                 }

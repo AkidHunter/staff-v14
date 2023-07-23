@@ -61,7 +61,6 @@ module.exports = {
     var CUSTOM_EMBED = new EmbedBuilder() 
         if (interaction.options.getString("title")) CUSTOM_EMBED.setTitle(interaction.options.getString("title"))
         if (interaction.options.getString("description")) CUSTOM_EMBED.setDescription(interaction.options.getString("description").replaceAll('\\n', '\n'))
-        if (interaction.options.getString("colour")) CUSTOM_EMBED.setColor(interaction.options.getString("colour"))   
         if (interaction.options.getString("author")) CUSTOM_EMBED.setAuthor(interaction.options.getString("author"))
         if (interaction.options.getString("url")) CUSTOM_EMBED.setURL(interaction.options.getString("url"))
         if (interaction.options.getString("thumbnail")) CUSTOM_EMBED.setThumbnail(interaction.options.getString("thumbnail"))

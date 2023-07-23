@@ -53,7 +53,7 @@ module.exports = {
                 new EmbedBuilder()
                   .setTitle("User Notes")
                   .setDescription(`${user} has no notes!`)
-                  .setColor("Red"),
+                  .setcolor("FF0000"),
               ],
             });
 

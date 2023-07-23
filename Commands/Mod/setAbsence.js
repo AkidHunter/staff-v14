@@ -1,4 +1,4 @@
-const { EmbedBuilder, SlashCommandBuilder, Colors } = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder,  } = require("discord.js");
 const DB = require("../../schemas/absenceSetup");
 module.exports = {
     data: new SlashCommandBuilder()
@@ -94,13 +94,13 @@ module.exports = {
         var suggestSetup = await DB.findOne({ GuildID: interaction.guild.id })
 
         if (!suggestSetup && interaction.options.getSubcommand() != "create" && interaction.options.getSubcommand() != "help") {
-            return interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.RED").setDescription(`❌ This server has not setup the absence system. \n\n Please use \`/absenceSetup create\`to begin the setup process.`)] })
+            return interaction.reply({ embeds: [new EmbedBuilder().setColor("FF0000").setDescription(`❌ This server has not setup the absence system. \n\n Please use \`/absenceSetup create\`to begin the setup process.`)] })
         } else if (suggestSetup && interaction.options.getSubcommand() == "create") {
-            return interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.RED").setDescription(`❌ This server has already setup the absence system.`)] })
+            return interaction.reply({ embeds: [new EmbedBuilder().setColor("FF0000").setDescription(`❌ This server has already setup the absence system.`)] })
         }
 
         const suggestionCommandHelp = new EmbedBuilder()
-            .setColor("Colors.AQUA")
+            .setColor("00FFFF")
             .setTitle(`Absence system setup help`)
             .setDescription(`To begin using this absence system, start by using the command \`/setAbsence create\` to begin the setup process.` + `\n\n` +
                 `You can then use the following commands to customise your system:` + `\n` +
@@ -118,7 +118,7 @@ module.exports = {
 
 
         const suggestionConfigHelp = new EmbedBuilder()
-            .setColor("Colors.AQUA")
+            .setColor("00FFFF")
             .setTitle(`Absence system config help`)
             .setDescription(
                 `\`•\` **Absence channel**: \`The channel in which absence requests are sent.\`` + `\n` +
@@ -137,7 +137,7 @@ module.exports = {
             case "create":
                 await DB.create({ GuildID: interaction.guild.id, ChannelID: "None", SuggestionManagers: [], AllowOwnSuggestionDelete: false, Disabled: true }).then(async() => {
                     await interaction.reply({
-                        embeds: [new EmbedBuilder().setColor("Colors.AQUA").setTitle(`Suggestion system`).setDescription(`The absence system has successfully been created for ${interaction.guild.name}. \n\n To allow you to setup this system, the \`/absence\` is currently disabled.`)]
+                        embeds: [new EmbedBuilder().setColor("00FFFF").setTitle(`Suggestion system`).setDescription(`The absence system has successfully been created for ${interaction.guild.name}. \n\n To allow you to setup this system, the \`/absence\` is currently disabled.`)]
                     })
                     await interaction.followUp({ embeds: [suggestionCommandHelp] })
                 })
@@ -148,16 +148,16 @@ module.exports = {
 
                 try {
                     await channel.send({
-                        embeds: [new EmbedBuilder().setColor("Colors.AQUA").setDescription(`✅ This channel has been set as an absence channel.`)]
+                        embeds: [new EmbedBuilder().setColor("00FFFF").setDescription(`✅ This channel has been set as an absence channel.`)]
                     }).then(async() => {
                         await DB.findOneAndUpdate({ GuildID: interaction.guild.id }, { ChannelID: channel.id }, { new: true, upsert: true })
-                        return interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.AQUA").setDescription(`✅ ${channel} has successfully been set as the absence channel for ${interaction.guild.name}.`)] })
+                        return interaction.reply({ embeds: [new EmbedBuilder().setColor("00FFFF").setDescription(`✅ ${channel} has successfully been set as the absence channel for ${interaction.guild.name}.`)] })
                     })
                 } catch (error) {
                     if (error.message === "Missing Access") {
-                        return interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.RED").setDescription(`❌ The bot does not have access to this channel.`)] })
+                        return interaction.reply({ embeds: [new EmbedBuilder().setColor("FF0000").setDescription(`❌ The bot does not have access to this channel.`)] })
                     } else {
-                        return interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.RED").setDescription(`❌ An error occured. \n\n \`\`\`${error}\`\`\``)] })
+                        return interaction.reply({ embeds: [new EmbedBuilder().setColor("FF0000").setDescription(`❌ An error occured. \n\n \`\`\`${error}\`\`\``)] })
                     }
                 }
                 break;
@@ -168,7 +168,7 @@ module.exports = {
                 const suggestionSystemDisabled = suggestSetup.Disabled ? "Disabled" : "Enabled"
 
                 const configEmbed = new EmbedBuilder()
-                    .setColor("Colors.AQUA")
+                    .setColor("00FFFF")
                     .setTitle(`Absence system config for ${interaction.guild.name}`)
                     .addFields({ name: "Abcense channel", value: `${suggestionsChannel}`, inline: true }, { name: "System Disabled/Enabled", value: `${suggestionSystemDisabled}`, inline: true }, { name: "Own suggestion delete", value: `${OwnSuggestionDelete}`, inline: true }, { name: "Suggestion managers", value: `${suggestionManagers}`, inline: false }, )
 
@@ -177,57 +177,57 @@ module.exports = {
             case "reset":
                 DB.deleteOne({ GuildID: interaction.guild.id })
                     .then(() => {
-                        return interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.AQUA").setDescription(`✅ The absence channel has successfully been reset.`)] })
+                        return interaction.reply({ embeds: [new EmbedBuilder().setColor("00FFFF").setDescription(`✅ The absence channel has successfully been reset.`)] })
                     })
                 break;
             case "enable":
                 if (suggestSetup.Disabled == false)
-                    return interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.RED").setDescription(`❌ The absence system is already enabled.`)] })
+                    return interaction.reply({ embeds: [new EmbedBuilder().setColor("FF0000").setDescription(`❌ The absence system is already enabled.`)] })
 
                 await DB.findOneAndUpdate({ GuildID: interaction.guild.id }, { Disabled: false })
-                interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.AQUA").setDescription(`✅ The absence system has been enabled.`)] })
+                interaction.reply({ embeds: [new EmbedBuilder().setColor("00FFFF").setDescription(`✅ The absence system has been enabled.`)] })
 
                 break;
             case "disable":
                 if (suggestSetup.Disabled == true)
-                    return interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.RED").setDescription(`❌ The absence system is already disabled.`)] })
+                    return interaction.reply({ embeds: [new EmbedBuilder().setColor("FF0000").setDescription(`❌ The absence system is already disabled.`)] })
 
                 await DB.findOneAndUpdate({ GuildID: interaction.guild.id }, { Disabled: true })
-                interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.AQUA").setDescription(`✅ The absence system has been disabled.`)] })
+                interaction.reply({ embeds: [new EmbedBuilder().setColor("00FFFF").setDescription(`✅ The absence system has been disabled.`)] })
 
                 break;
             case "absence-managers":
                 switch (interaction.options.getRole("role")) {
                     case "view":
                         const suggestionManagers = suggestSetup.SuggestionManagers.length <= 0 || !suggestSetup.SuggestionManagers ? "None" : `<@&${suggestSetup.SuggestionManagers.join(">, <@&")}>`
-                        interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.AQUA").setTitle(`Absence manangers for ${interaction.guild.name}`).setDescription(`Please note that these members can accept, decline and delete absence requests.\n\n${suggestionManagers}`)] })
+                        interaction.reply({ embeds: [new EmbedBuilder().setColor("00FFFF").setTitle(`Absence manangers for ${interaction.guild.name}`).setDescription(`Please note that these members can accept, decline and delete absence requests.\n\n${suggestionManagers}`)] })
                         break;
                     case "add":
                         var role = interaction.options.getRole("role")
                         if (!role)
-                            return interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.RED").setDescription(`❌ You didn't provide a role.`)] })
+                            return interaction.reply({ embeds: [new EmbedBuilder().setColor("FF0000").setDescription(`❌ You didn't provide a role.`)] })
 
                         if (suggestSetup.SuggestionManagers.includes(role.id))
-                            return interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.RED").setDescription(`❌ ${role} is already a absence manager.`)] })
+                            return interaction.reply({ embeds: [new EmbedBuilder().setColor("FF0000").setDescription(`❌ ${role} is already a absence manager.`)] })
 
                         await suggestSetup.SuggestionManagers.push(role.id)
                         await suggestSetup.save()
 
-                        interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.AQUA").setDescription(`✅ ${role} has been added as a absence manager.`)] })
+                        interaction.reply({ embeds: [new EmbedBuilder().setColor("00FFFF").setDescription(`✅ ${role} has been added as a absence manager.`)] })
 
                         break;
                     case "remove":
                         var role = interaction.options.getRole("role")
                         if (!role)
-                            return interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.RED").setDescription(`❌ You didn't provide a role.`)] })
+                            return interaction.reply({ embeds: [new EmbedBuilder().setColor("FF0000").setDescription(`❌ You didn't provide a role.`)] })
 
                         if (!suggestSetup.SuggestionManagers.includes(role.id))
-                            return interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.RED").setDescription(`❌ ${role} isn't a absence manager.`)] })
+                            return interaction.reply({ embeds: [new EmbedBuilder().setColor("FF0000").setDescription(`❌ ${role} isn't a absence manager.`)] })
 
                         await suggestSetup.SuggestionManagers.splice(suggestSetup.SuggestionManagers.indexOf(role.id, 1))
                         await suggestSetup.save()
 
-                        interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.AQUA").setDescription(`✅ ${role} has been removed as a absence manager.`)] })
+                        interaction.reply({ embeds: [new EmbedBuilder().setColor("00FFFF").setDescription(`✅ ${role} has been removed as a absence manager.`)] })
 
                         break;
                 }
@@ -237,10 +237,10 @@ module.exports = {
 
                 if (allowOwnSuggestionDelete) {
                     await DB.findOneAndUpdate({ GuildID: interaction.guild.id }, { AllowOwnSuggestionDelete: true })
-                    return interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.AQUA").setDescription(`✅ Members can now delete their own absence requests.`)] })
+                    return interaction.reply({ embeds: [new EmbedBuilder().setColor("00FFFF").setDescription(`✅ Members can now delete their own absence requests.`)] })
                 } else {
                     await DB.findOneAndUpdate({ GuildID: interaction.guild.id }, { AllowOwnSuggestionDelete: false })
-                    interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.AQUA").setDescription(`✅ Members can now not delete their own absence requests.`)] })
+                    interaction.reply({ embeds: [new EmbedBuilder().setColor("00FFFF").setDescription(`✅ Members can now not delete their own absence requests.`)] })
                 }
                 break;
         }

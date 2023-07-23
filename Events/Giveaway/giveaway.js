@@ -35,13 +35,13 @@ module.exports = {
 
     if (isNaN(winners) || !isFinite(winners) || winners < 1) {
       embed
-        .setColor("Red")
+        .setcolor("FF0000")
         .setDescription("Please provide a valid winner count");
       return interaction.reply({ embeds: [embed], ephemeral: true });
     }
 
     if (duration === undefined) {
-      embed.setColor("Red").setDescription("Please provide a valid duration");
+      embed.setcolor("FF0000").setDescription("Please provide a valid duration");
       return interaction.reply({ embeds: [embed], ephemeral: true });
     }
 

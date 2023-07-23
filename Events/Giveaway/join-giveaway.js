@@ -22,28 +22,28 @@ module.exports = {
 
         if (!data) {
             embed
-                .setColor("Red")
+                .setcolor("FF0000")
                 .setDescription("There is no data in the database");
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
 
         if (data.Entered.includes(interaction.user.id)) {
             embed
-                .setColor("Red")
+                .setcolor("FF0000")
                 .setDescription("You have already joined the giveaway");
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
 
         if (data.Paused === true) {
             embed
-                .setColor("Red")
+                .setcolor("FF0000")
                 .setDescription("This giveaway is paused");
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
 
         if (data.Ended === true) {
             embed
-                .setColor("Red")
+                .setcolor("FF0000")
                 .setDescription("This giveaway has ended");
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
@@ -56,7 +56,7 @@ module.exports = {
             $push: { Entered: interaction.user.id }
         }).then(() => {
             embed
-                .setColor("Green")
+                .setColor("008000")
                 .setDescription("You have joined the giveaway");
             return interaction.reply({ embeds: [embed], ephemeral: true });
         });

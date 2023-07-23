@@ -42,7 +42,7 @@ const {
               .setDescription(
                 "Too much time was inputted, please input something over a year."
               )
-              .setColor("Red"),
+              .setcolor("FF0000"),
           ],
         });
       }

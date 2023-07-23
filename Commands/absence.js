@@ -1,4 +1,4 @@
-const { CommandInteraction, EmbedBuilder, SlashCommandBuilder, Colors } = require("discord.js");
+const { CommandInteraction, EmbedBuilder, SlashCommandBuilder,  } = require("discord.js");
 const suggestDB = require("../schemas/absence");
 const suggestSetupDB = require("../schemas/absenceSetup");
 module.exports = {
@@ -59,20 +59,20 @@ module.exports = {
         var absenceChannel;
 
         if (!absenceSetup) {
-            return interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.RED").setDescription(`❌ This server has not setup the absent system.`)] })
+            return interaction.reply({ embeds: [new EmbedBuilder().setColor("FF0000").setDescription(`❌ This server has not setup the absent system.`)] })
         } else {
             absenceChannel = interaction.guild.channels.cache.get(absenceSetup.ChannelID)
         }
 
         if (absenceSetup.Disabled)
-            return interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.RED").setDescription(`❌ Absents are currently disabled.`)] })
+            return interaction.reply({ embeds: [new EmbedBuilder().setColor("FF0000").setDescription(`❌ Absents are currently disabled.`)] })
 
         if (absenceSetup.ChannelID === "None")
-            return interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.RED").setDescription(`❌ The absent channel hasn't been set.`)] })
+            return interaction.reply({ embeds: [new EmbedBuilder().setColor("FF0000").setDescription(`❌ The absent channel hasn't been set.`)] })
 
 
         const Embed = new EmbedBuilder()
-            .setColor("Colors.ORANGE")
+            .setColor("FFA500")
             .setDescription(`**Absence Request:**\n ${interaction.user.tag}`)
             .addFields({ name: "Type", value: type, inline: true }, { name: "Status", value: "🕐 Pending", inline: true }, { name: "Length", value: length, inline: true }, { name: "Explanation", value: explanation, inline: true }, )
 
@@ -95,10 +95,10 @@ module.exports = {
                 DownvotesMembers: [],
                 InUse: false,
             })
-            interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.ORANGE").setDescription(`✅ Hey ${interaction.user.tag},Your absence was successfully created and sent to be reviewed by an Admin+`)], ephemeral: true})
+            interaction.reply({ embeds: [new EmbedBuilder().setColor("FFA500").setDescription(`✅ Hey ${interaction.user.tag},Your absence was successfully created and sent to be reviewed by an Admin+`)], ephemeral: true})
         } catch (err) {
             console.log(err);
-            return interaction.reply({ embeds: [new EmbedBuilder().setColor("Colors.RED").setDescription(`❌ An error occured.`)] })
+            return interaction.reply({ embeds: [new EmbedBuilder().setColor("FF0000").setDescription(`❌ An error occured.`)] })
         }
     }
 }
