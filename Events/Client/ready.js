@@ -10,18 +10,13 @@ module.exports = {
     console.log("The Client is now ready.");
 
     let activities = [
-      {
-        text: `FateSMP Discord`,
-        type: ActivityType.Watching, 
-        status: "online" 
-    },
     {
         text: `play.FateSMP.org`,
         type: ActivityType.Playing,
         status: "online"
     },
     {
-        text: `FateSMP Community`,
+        text: `Over FateSMP Staff`,
         type: ActivityType.Watching,
         status: "online"
     },
