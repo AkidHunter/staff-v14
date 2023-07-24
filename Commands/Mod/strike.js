@@ -92,7 +92,7 @@ module.exports = {
             ephemeral: true,
           });
 
-          const modData = await client.channels.cache.get('1060557571817218129');
+          const modData = await client.channels.cache.get('1126662116091371521');
           const data = await strikeSchema.findOne({
             guildId: guild.id,
             userId: user.id,

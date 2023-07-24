@@ -121,7 +121,7 @@ module.exports = {
             ephemeral: true,
           });
 
-          const modData = await client.channels.cache.get('1060557571817218129');
+          const modData = await client.channels.cache.get('1132986227046482070');
           const data = await warnSchema.findOne({
             guildId: guild.id,
             userId: user.id,
