@@ -11,15 +11,20 @@ module.exports = {
 
     let activities = [
       {
-          text: `Zybre Client`,
-          type: ActivityType.Playing,
-          status: "online"
-      },
-      {
-          text: `Zybre Staff`,
-          type: ActivityType.Watching,
-          status: "online"
-      },
+        text: `FateSMP Discord`,
+        type: ActivityType.Watching, 
+        status: "online" 
+    },
+    {
+        text: `play.FateSMP.org`,
+        type: ActivityType.Playing,
+        status: "online"
+    },
+    {
+        text: `FateSMP Community`,
+        type: ActivityType.Watching,
+        status: "online"
+    },
   ];
   let c = 0;
 
