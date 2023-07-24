@@ -29,14 +29,6 @@ module.exports = {
         )
         .setRequired(false);
     })
-    .addChannelOption((option) => { 
-      return option
-        .setName("member")
-        .setDescription(
-          "The channel where the logs related to member will be sent."
-        )
-        .setRequired(false);
-    })
     .addChannelOption((option) => {
       return option
         .setName("channel")
@@ -55,7 +47,6 @@ module.exports = {
     const { options } = interaction;
     const message = options.getChannel("message");
     const role = options.getChannel("role");
-    const member = options.getChannel("member");
     const channel = options.getChannel("channel");
 
     const data = await db.findOne({
@@ -65,7 +56,6 @@ module.exports = {
     const info = {
       message: message ? message.id : data?.info?.message || null,
       role: role ? role.id : data?.info?.role || null,
-      member: member ? member.id : data?.info?.member || null,
       channel: channel ? channel.id : data?.info?.channel || null,
     };
 

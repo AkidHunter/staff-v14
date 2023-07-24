@@ -111,7 +111,6 @@ module.exports = {
                 `\`•\` **/absenceSetup reset**: \`Reset the abcense system for this guild.\`` + `\n` +
                 `\`•\` **/absenceSetup enable**: \`Enables the abcense system.\`` + `\n` +
                 `\`•\` **/absenceSetup disable**: \`Disables the abcense system.\`` + `\n` +
-                `\`•\` **/absenceSetup abcense-managers [view/add/remove] [role]**: \`Allows you to add, remove and view the abcense managers for this guild. Be aware that members with any of these roles can accept/decline abcenses and can delete other member's abcenses.\`` + `\n` +
                 `\`•\` **/absenceSetup allow-own-abcense-delete**: \`Set whether members can delete their own abcense or not.\``
             )
 
@@ -123,8 +122,7 @@ module.exports = {
             .setDescription(
                 `\`•\` **Absence channel**: \`The channel in which absence requests are sent.\`` + `\n` +
                 `\`•\` **Disabled**: \`Whether or not the absence system is disabled for this guild.\`` + `\n` +
-                `\`•\` **Own absence delete**: \`Whether or not members can delete absence requests that they made\`` + `\n` +
-                `\`•\` **Absence managers**: \`Members with any of these roles can accept/decline absence requests and can delete other member's absence requests.\``
+                `\`•\` **Own absence delete**: \`Whether or not members can delete absence requests that they made\`` + `\n`
             )
 
 
@@ -196,42 +194,7 @@ module.exports = {
                 interaction.reply({ embeds: [new EmbedBuilder().setColor("00FFFF").setDescription(`✅ The absence system has been disabled.`)] })
 
                 break;
-            case "absence-managers":
-                switch (interaction.options.getRole("role")) {
-                    case "view":
-                        const suggestionManagers = suggestSetup.SuggestionManagers.length <= 0 || !suggestSetup.SuggestionManagers ? "None" : `<@&${suggestSetup.SuggestionManagers.join(">, <@&")}>`
-                        interaction.reply({ embeds: [new EmbedBuilder().setColor("00FFFF").setTitle(`Absence manangers for ${interaction.guild.name}`).setDescription(`Please note that these members can accept, decline and delete absence requests.\n\n${suggestionManagers}`)] })
-                        break;
-                    case "add":
-                        var role = interaction.options.getRole("role")
-                        if (!role)
-                            return interaction.reply({ embeds: [new EmbedBuilder().setColor("FF0000").setDescription(`❌ You didn't provide a role.`)] })
 
-                        if (suggestSetup.SuggestionManagers.includes(role.id))
-                            return interaction.reply({ embeds: [new EmbedBuilder().setColor("FF0000").setDescription(`❌ ${role} is already a absence manager.`)] })
-
-                        await suggestSetup.SuggestionManagers.push(role.id)
-                        await suggestSetup.save()
-
-                        interaction.reply({ embeds: [new EmbedBuilder().setColor("00FFFF").setDescription(`✅ ${role} has been added as a absence manager.`)] })
-
-                        break;
-                    case "remove":
-                        var role = interaction.options.getRole("role")
-                        if (!role)
-                            return interaction.reply({ embeds: [new EmbedBuilder().setColor("FF0000").setDescription(`❌ You didn't provide a role.`)] })
-
-                        if (!suggestSetup.SuggestionManagers.includes(role.id))
-                            return interaction.reply({ embeds: [new EmbedBuilder().setColor("FF0000").setDescription(`❌ ${role} isn't a absence manager.`)] })
-
-                        await suggestSetup.SuggestionManagers.splice(suggestSetup.SuggestionManagers.indexOf(role.id, 1))
-                        await suggestSetup.save()
-
-                        interaction.reply({ embeds: [new EmbedBuilder().setColor("00FFFF").setDescription(`✅ ${role} has been removed as a absence manager.`)] })
-
-                        break;
-                }
-                break;
             case "allow-own-absence-delete":
                 const allowOwnSuggestionDelete = interaction.options.getBoolean("true-or-false");
 

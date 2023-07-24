@@ -26,13 +26,13 @@ module.exports = {
         .addStringOption((options) =>
             options
                 .setName("explanation")
-                .setDescription("Describe your absence request.")
+                .setDescription("Describe the reason for your absence request.")
                 .setRequired(true)
         )
         .addStringOption((options) =>
             options
                 .setName("length")
-                .setDescription("Absence length. (Example: 1d)")
+                .setDescription("Absence length. (Example: 1d = 1 day, 1M = 1 month)")
                 .setRequired(true)
         )
         .addBooleanOption((options) =>
@@ -60,12 +60,10 @@ module.exports = {
             let value = parseInt(input.slice(0, -1));
           
             switch(lastChar) {
-              case 'm':
-                return value * 60 * 1000; // minutes
-              case 'h':
-                return value * 60 * 60 * 1000; // hours
               case 'd':
                 return value * 24 * 60 * 60 * 1000; // days
+            case 'M':
+                return value * 30.44 * 24 * 60 * 60 * 1000; // month
               default:
                 return NaN;
             }
