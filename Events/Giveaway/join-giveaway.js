@@ -22,28 +22,28 @@ module.exports = {
 
         if (!data) {
             embed
-                .setcolor("FF0000")
+                .setColor("FF0000")
                 .setDescription("There is no data in the database");
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
 
         if (data.Entered.includes(interaction.user.id)) {
             embed
-                .setcolor("FF0000")
+                .setColor("FF0000")
                 .setDescription("You have already joined the giveaway");
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
 
         if (data.Paused === true) {
             embed
-                .setcolor("FF0000")
+                .setColor("FF0000")
                 .setDescription("This giveaway is paused");
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
 
         if (data.Ended === true) {
             embed
-                .setcolor("FF0000")
+                .setColor("FF0000")
                 .setDescription("This giveaway has ended");
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }

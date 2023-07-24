@@ -10,7 +10,7 @@ const noteSchema = require("../../Schemas/noteSchema"); // change this to your p
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("note-logs")
-    .setDescription("Get the logs of a user")
+    .setDescription("Get the note logs of a user")
     .addSubcommand((subCmd) =>
       subCmd
         .setName("notes")
@@ -53,7 +53,7 @@ module.exports = {
                 new EmbedBuilder()
                   .setTitle("User Notes")
                   .setDescription(`${user} has no notes!`)
-                  .setcolor("FF0000"),
+                  .setColor("FF0000"),
               ],
             });
 
@@ -77,12 +77,15 @@ module.exports = {
               );
 
               embed.addFields({
-                name: `<:note_emoji_2:1028290390194929814>  ${notes._id}`,
-                value: `<:replycontinued:1015235683209707534> Note: \`${notes.note}\`\n<:replycontinued:1015235683209707534> Note Date: ${notes.noteDate}\n<:reply:1015235235195146301> Moderator: ${moderator}`,
+                name: `:open_file_folder:  ${notes._id}`,
+                value: `<:reply:1132971893205508237> Note: \`${notes.note}\`\n<:reply:1132971893205508237> Note Date: ${notes.noteDate}\n<:reply:1132971893205508237> Moderator: ${moderator}`,
               });
             }
-
-            return await interaction.reply({ embeds: [embed] });
+            return await interaction.reply({ embeds: [embed] }).then(() => {
+              setTimeout(async() => {
+                await interaction.deleteReply();
+              }, 20000);
+            })
           }
 
           // if the user did not select a page
@@ -98,12 +101,16 @@ module.exports = {
             );
 
             embed.addFields({
-              name: `<:note_emoji_2:1028290390194929814>  ${notes._id}`,
-              value: `<:replycontinued:1015235683209707534> Note: \`${notes.note}\`\n<:replycontinued:1015235683209707534> Note Date: ${notes.noteDate}\n<:reply:1015235235195146301> Moderator: ${moderator}`,
+              name: `:open_file_folder:  ${notes._id}`,
+              value: `<:reply:1132971893205508237> Note: \`${notes.note}\`\n<:reply:1132971893205508237> Note Date: ${notes.noteDate}\n<:reply:1132971893205508237> Moderator: ${moderator}`,
             });
           }
 
-          await interaction.reply({ embeds: [embed] });
+          return await interaction.reply({ embeds: [embed] }).then(() => {
+            setTimeout(async() => {
+              await interaction.deleteReply();
+              }, 20000)
+            })
         }
         break;
 

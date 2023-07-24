@@ -6,9 +6,10 @@ const {
   SlashCommandBuilder
 } = require("discord.js");
 
-const db = require("../../Schemas/logs");
+const db = require("../../Schemas/logSchema");
 
 module.exports = {
+  developer: true,
   data: new SlashCommandBuilder()
     .setName("logs")
     .setDescription("Set up the log system")

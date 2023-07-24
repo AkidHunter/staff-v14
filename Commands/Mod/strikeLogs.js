@@ -45,7 +45,7 @@ module.exports = {
               new EmbedBuilder()
                 .setTitle("User strike Logs")
                 .setDescription(`${user} has no strike logs`)
-                .setcolor("FF0000"),
+                .setColor("FF0000"),
             ],
           });
 

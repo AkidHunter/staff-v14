@@ -85,11 +85,9 @@ module.exports = {
           await interaction.reply({
             embeds: [
               new EmbedBuilder()
-                .setTitle("User striked!")
-                .setDescription(
-                  `<@${user.id}> has been striked for \`${reason}\`!`
-                )
-                .setcolor("FF0000"),
+              .setTitle("User striked!")
+              .setDescription(`<@${user.id}> has been striked for \`${reason}\`!`)
+              .setColor("FF0000"),
             ],
             ephemeral: true,
           });
@@ -167,7 +165,7 @@ module.exports = {
                 embeds: [
                   new EmbedBuilder()
                     .setTitle("User has dms disabled so no DM was sent.")
-                    .setcolor("FF0000"),
+                    .setColor("FF0000"),
                 ],
               });
             });
