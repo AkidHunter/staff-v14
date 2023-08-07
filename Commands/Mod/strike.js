@@ -92,7 +92,7 @@ module.exports = {
             ephemeral: true,
           });
 
-          const modData = await client.channels.cache.get('1126662116091371521');
+          const modData = await client.channels.cache.get('1126662869476458646');
           const data = await strikeSchema.findOne({
             guildId: guild.id,
             userId: user.id,
@@ -100,6 +100,46 @@ module.exports = {
 
           if (modData) {
             modData.send({
+              embeds: [
+                new EmbedBuilder().setTitle(":warning: Strike issued :warning:").addFields(
+                  {
+                    name: "Staff:",
+                    value: `<@${user.id}>`,
+                    inline: true,
+                  },
+                  {
+                    name: "Strike issued by:",
+                    value: `<@${member.user.id}>`,
+                    inline: true,
+                  },
+                  {
+                    name: "Date of strike:",
+                    value: `${strikeTime}`,
+                    inline: true,
+                  },
+                  {
+                    name: "Strike ID:",
+                    value: `\`${data._id}\``,
+                    inline: true,
+                  },
+                  {
+                    name: "Total strikes:",
+                    value: `\`${totalStrikes}\``,
+                    inline: true,
+                  },
+                  {
+                    name: "Reason for strike:",
+                    value: `\`\`\`${reason}\`\`\``,
+                  }
+                ),
+              ],
+            });
+          }
+
+          const modData2 = await client.channels.cache.get('1126662116091371521');
+
+          if (modData2) {
+            modData2.send({
               embeds: [
                 new EmbedBuilder().setTitle(":warning: Strike issued :warning:").addFields(
                   {
