@@ -64,7 +64,7 @@ module.exports = {
           let totalStrikes = 0;
           try {
               const strikes = await strikeSchema.find({ guildId: guild.id, userId: user.id });
-              totalStrikes = strikes.length;
+              totalStrikes = strikes.length + 1;
           } catch (err) {
               console.log(err);
           }
