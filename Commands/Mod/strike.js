@@ -99,7 +99,7 @@ module.exports = {
           });
 
           if (modData) {
-            modData.send({
+            await modData.send({
               embeds: [
                 new EmbedBuilder().setTitle(":warning: Strike issued :warning:").addFields(
                   {
@@ -139,7 +139,7 @@ module.exports = {
           const modData2 = await client.channels.cache.get('1126662116091371521');
 
           if (modData2) {
-            modData2.send({
+            await modData2.send({
               embeds: [
                 new EmbedBuilder().setTitle(":warning: Strike issued :warning:").addFields(
                   {
