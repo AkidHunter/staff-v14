@@ -16,11 +16,15 @@ module.exports = {
 
     await sendLogs(newMsg.guild, newMsg.member, "message", "Message Edited", [
       {
-        name: "Previous Content:",
+        name: "In channel:",
+        value: `<#${newMsg.channel.id}>`,
+      },
+      {
+        name: "Before:",
         value: `\`\`\`${oldContent}\`\`\``,
       },
       {
-        name: "New Content:",
+        name: "After:",
         value: `\`\`\`${newContent}\`\`\``,
       },
     ]);

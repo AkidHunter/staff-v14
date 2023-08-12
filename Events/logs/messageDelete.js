@@ -12,6 +12,10 @@ module.exports = {
     if (msg.author?.bot) return;
     await sendLogs(msg.guild, msg.member, "message", "Message Deleted", [
       {
+        name: "From channel:",
+        value: `<#${msg.channel.id}>`,
+      },
+      {
         name: "Content:",
         value: `\`\`\`${msg.content.replace("`", "")}\`\`\``,
       },

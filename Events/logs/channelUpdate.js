@@ -53,15 +53,21 @@ module.exports = {
   //CHANNEL SECTION
   async execute(oldCh, newCh) {
     const botUser = oldCh.client.user;
-    await sendLogs(oldCh.guild, botUser, "channel", "Channel Updated!", [
-      {
-        name: "Old Channel:",
-        value: `[#${oldCh.name}](https://discord.com/channels/${oldCh.guild.id}/${oldCh.id})`,
-      },
-      {
-        name: "New Channel:",
-        value: `[#${newCh.name}](https://discord.com/channels/${newCh.guild.id}/${newCh.id})`,
-      },
-    ]);
+
+    // Check if channel name has been updated
+    const nameChanged = oldCh.name !== newCh.name;
+
+    if (nameChanged) {
+        await sendLogs(oldCh.guild, botUser, "channel", "Channel Updated!", [
+            {
+                name: "Old Channel:",
+                value: `[#${oldCh.name}](https://discord.com/channels/${oldCh.guild.id}/${oldCh.id})`,
+            },
+            {
+                name: "New Channel:",
+                value: `[#${newCh.name}](https://discord.com/channels/${newCh.guild.id}/${newCh.id})`,
+            },
+        ]);
+    }
   },
 };
