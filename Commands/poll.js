@@ -11,8 +11,8 @@ module.exports = {
 
     async execute(interaction) {
         message = await interaction.channel.send(interaction.options.getString('message').replaceAll('\\n', '\n'));
-        message.react('<:affirmative:971141992870457444>');
-        message.react('<:negative:971142031499989082>')	;
+        await message.react('✅');
+        await message.react('❌')	;
         interaction.reply({ content: 'Poll message sent!', ephemeral: true });
     }
 }
